@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
 import axios from 'axios';
 import 'react-tabs/style/react-tabs.css';
@@ -19,6 +19,11 @@ function HomePage() {
     email: '',
   });
   const [deleteUsername, setDeleteUsername] = useState('');
+
+  useEffect(() => {
+    // Automatically fetch customers when the component mounts
+    fetchCustomers();
+  }, []);
 
   // Function to handle enter key press
   const handleEnterKey = (e) => {
@@ -43,8 +48,7 @@ function HomePage() {
       else {
         response = await axios.get('https://us-east-2.aws.data.mongodb-api.com/app/application-0-pwpmz/endpoint/getCustomers');
       }
-
-      console.log(JSON.stringify(response));
+      
       setCustomers(response.data);
     }
     catch (error) {
@@ -156,7 +160,6 @@ function HomePage() {
     );
   };
 
-
   return (
     <div className="home-page">
       <Tabs>
@@ -168,7 +171,6 @@ function HomePage() {
         </TabList>
 
         <TabPanel>
-
           <h2>Customer Data</h2>
           <input
             type="text"
@@ -178,10 +180,9 @@ function HomePage() {
             onKeyDown={handleEnterKey}
           />
           <button onClick={fetchCustomers}>Load Customers</button>
-
-
           {renderCustomerTable()}
         </TabPanel>
+
         <TabPanel>
           <h2>Update Customer</h2>
           <input type="text" placeholder="Username" value={updateUsername} onChange={e => setUpdateUsername(e.target.value)} />
@@ -192,6 +193,7 @@ function HomePage() {
           <input type="text" placeholder="Tier" value={updateTier} onChange={e => setUpdateTier(e.target.value)} />
           <button onClick={handleUpdate}>Update Customer</button>
         </TabPanel>
+
         <TabPanel>
           <h2>Create Customer</h2>
           <input type="text" placeholder="Username" value={newCustomer.username} onChange={e => setNewCustomer({ ...newCustomer, username: e.target.value })} />
@@ -202,6 +204,7 @@ function HomePage() {
           <input type="text" placeholder="Tier" value={newCustomer.tier} onChange={e => setNewCustomer({ ...newCustomer, tier: e.target.value })} />
           <button onClick={handlePost}>Create Customer</button>
         </TabPanel>
+
         <TabPanel>
           <h2>Delete Customer</h2>
           <input type="text" placeholder="Username" value={deleteUsername} onChange={e => setDeleteUsername(e.target.value)} />
