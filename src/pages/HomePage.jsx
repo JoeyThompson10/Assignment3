@@ -20,17 +20,23 @@ function HomePage() {
   });
   const [deleteUsername, setDeleteUsername] = useState('');
 
+  // Function to handle enter key press
   const handleEnterKey = (e) => {
     if (e.key === 'Enter') {
       fetchCustomers();
     }
   };
 
+  // Check if field is empty
+  const isFieldEmpty = (fieldValue) => {
+    return !fieldValue || fieldValue.trim() === '';
+  }
 
   // Function to fetch customer data
   const fetchCustomers = async () => {
     try {
       let response;
+
       if (!username || username !== '') {
         response = await axios.get('https://us-east-2.aws.data.mongodb-api.com/app/application-0-pwpmz/endpoint/getCustomers?username=' + username);
       }
@@ -44,10 +50,14 @@ function HomePage() {
     catch (error) {
       console.error('Error fetching customer data:', error);
     }
-
   };
 
+  // Function to update customer data
   const handleUpdate = async () => {
+    if (isFieldEmpty(updateUsername) || isFieldEmpty(updateName) || isFieldEmpty(updateAddress) || isFieldEmpty(updateEmail) || isFieldEmpty(updateAccounts) || isFieldEmpty(updateTier)) {
+      alert('Username, name, address, email, accounts, and tier are required to update a customer.');
+      return;
+    }
     const updateData = JSON.stringify({
       name: updateName,
       address: updateAddress,
@@ -55,32 +65,60 @@ function HomePage() {
       accounts: updateAccounts.split(','),
       tier: updateTier,
     });
+
     try {
+      // calls endpoint with updateUsername as query parameter and updateData as modifier
       await axios.put('https://us-east-2.aws.data.mongodb-api.com/app/application-0-pwpmz/endpoint/putCustomers?username=' + updateUsername + '&updateData=' + updateData);
       fetchCustomers(); // Refresh data
+
+      alert('Customer updated successfully.');
     } catch (error) {
       console.error('Error updating customer:', error);
     }
   };
 
+  // Function to create customer data
   const handlePost = async () => {
+    if (isFieldEmpty(newCustomer.username) || isFieldEmpty(newCustomer.name) || isFieldEmpty(newCustomer.address) || isFieldEmpty(newCustomer.email) || isFieldEmpty(newCustomer.accounts) || isFieldEmpty(newCustomer.tier)) {
+      alert('Username, name, address, email, accounts, and tier are required to create a customer.');
+      return;
+    }
+
     try {
-      await axios.post('https://us-east-2.aws.data.mongodb-api.com/app/application-0-pwpmz/endpoint/postCustomers', JSON.parse(newCustomerData));
+      const newCustomerData = JSON.stringify({
+        username: newCustomer.username,
+        name: newCustomer.name,
+        address: newCustomer.address,
+        email: newCustomer.email,
+        accounts: newCustomer.accounts.split(','),
+        tier: newCustomer.tier,
+      });
+
+      await axios.post('https://us-east-2.aws.data.mongodb-api.com/app/application-0-pwpmz/endpoint/postCustomers?newCustomerData=' + newCustomerData);
+
       fetchCustomers(); // Refresh data
+
+      alert('New customer created successfully.');
     } catch (error) {
       console.error('Error creating customer:', error);
     }
   };
 
+  // Function to delete customer data
   const handleDelete = async () => {
+    if (isFieldEmpty(deleteUsername)) {
+      alert('Username is required to delete a customer.');
+      return;
+    }
     try {
       await axios.delete(`https://us-east-2.aws.data.mongodb-api.com/app/application-0-pwpmz/endpoint/deleteCustomers?username=${deleteUsername}`);
       fetchCustomers(); // Refresh data
+
+      alert('Customer deleted successfully.');
     } catch (error) {
       console.error('Error deleting customer:', error);
     }
   };
-
 
   // Function to render customer data in a table
   const renderCustomerTable = () => {
@@ -106,9 +144,9 @@ function HomePage() {
                 <td>{customer.email}</td>
                 <td>{customer.accounts.join(', ')}</td>
                 <td>
-                  {Object.values(customer.tier_and_details)
+                  {customer.tier_and_details ? Object.values(customer.tier_and_details)
                     .map(detail => detail.tier)
-                    .join(', ')}
+                    .join(', ') : null}
                 </td>
               </tr>
             ))

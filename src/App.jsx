@@ -5,7 +5,6 @@ import Footer from './headerfooter/Footer';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
-import TermsPage from './pages/TermsPage';
 import './css/global.css';
 
 function App() {
@@ -18,7 +17,6 @@ function App() {
           <Route path="/Home" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/terms" element={<TermsPage />} />
         </Routes>
         <Footer />
       </div>

@@ -7,10 +7,9 @@ function Footer() {
     <footer className="footer">
       <nav>
         <Link to="/about">About</Link> | 
-        <Link to="/contact">Contact</Link> | 
-        <Link to="/terms">Terms</Link>
+        <Link to="/contact">Contact</Link>
       </nav>
-      <p>© 2023 My React App</p>
+      <p>© 2023 Joseph Thompson</p>
     </footer>
   );
 }
