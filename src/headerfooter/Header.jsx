@@ -7,7 +7,7 @@ function Header() {
   return (
     <header className="header">
       <div className="brand" onClick={() => navigate("/")}>
-        Joey's React Template
+        SWE 4633 - Assignment 3 - Joseph Thompson
       </div>
       <nav className="navigation">
         <button onClick={() => navigate("/")}>Home</button>
