@@ -48,7 +48,7 @@ function HomePage() {
       else {
         response = await axios.get('https://us-east-2.aws.data.mongodb-api.com/app/application-0-pwpmz/endpoint/getCustomers');
       }
-      
+
       setCustomers(response.data);
     }
     catch (error) {
@@ -174,7 +174,7 @@ function HomePage() {
           <h2>Customer Data</h2>
           <input
             type="text"
-            placeholder="Username"
+            placeholder="Search by Username"
             value={username}
             onChange={e => setUsername(e.target.value)}
             onKeyDown={handleEnterKey}
