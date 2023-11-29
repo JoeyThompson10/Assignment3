@@ -5,14 +5,16 @@ function AboutPage() {
   return (
     <div className="about-page">
       <h1>About This App</h1>
-      <p>This application is a minimalistic template designed to help kickstart your next React project with Vite. It incorporates basic yet essential features such as routing, navigation, and tabs to demonstrate a typical app structure.</p>
-      <h2>Packages Used</h2>
+      <p>This application serves as a practical implementation of REST API operations (GET, PUT, POST, DELETE) in a cloud-based environment. It demonstrates how to manage customer data in a cloud database, showcasing real-world applications of cloud computing and API integration in modern web development.</p>
+      <h2>Core Features</h2>
       <ul>
-        <li><strong>react-router-dom:</strong> Enables the routing functionalities within the application, allowing for seamless navigation between different components/pages.</li>
-        <li><strong>react-tabs:</strong> An accessible and easy-to-use package to implement tabs within the app, enhancing the user experience and content organization.</li>
+        <li><strong>REST API Integration:</strong> Utilizes GET, PUT, POST, and DELETE requests to interact with a cloud-based database, reflecting the CRUD (Create, Read, Update, Delete) operations essential in web applications.</li>
+        <li><strong>Cloud Database Interaction:</strong> Demonstrates how to connect a React frontend with a cloud-hosted database, providing a scalable and flexible data management solution.</li>
       </ul>
-      <h3>Customizable Styling</h3>
-      <p>All styles are easily customizable through the CSS file. The use of CSS variables ensures that you can quickly change the app's color scheme, text styles, and other visual elements from a central location. Feel free to adapt and extend the styles to match your specific needs and brand identity.</p>
+      <h3>Technologies Used</h3>
+      <p>The app is built using React, with Axios for API requests. It interfaces with a cloud database, showcasing how cloud computing is integrated into frontend development. The styling is achieved using CSS, which is easily customizable to suit different design needs.</p>
+      <h4>Course Assignment Details</h4>
+      <p>Assignment for SWE 4633 by Joseph Thompson (11/28/2023), under the guidance of Dr. Xia Li. The project aligns with the learning objectives of Module 6, focusing on cloud platform and REST API interactions.</p>
     </div>
   );
 }
