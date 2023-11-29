@@ -1,0 +1,47 @@
+.splash-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: var(--background-color);
+  color: var(--body-text-color);
+}
+
+.splash-page h1 {
+  margin: 0;
+  font-size: 2.5em;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  height: 15vmin;
+  margin: 20px;
+  pointer-events: none;
+}
+
+.react-logo {
+  animation: logo-spin infinite 20s linear;
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.react-logo {
+  animation-delay: 0s;
+}
+
+.vite-logo {
+  animation-delay: 0.5s; /* Delay the Vite logo animation for a synchronized effect */
+}
