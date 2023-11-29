@@ -10,6 +10,8 @@ function HomePage() {
   const [updateName, setUpdateName] = useState('');
   const [updateAddress, setUpdateAddress] = useState('');
   const [updateEmail, setUpdateEmail] = useState('');
+  const [updateAccounts, setUpdateAccounts] = useState('');
+  const [updateTier, setUpdateTier] = useState('');
   const [newCustomer, setNewCustomer] = useState({
     username: '',
     name: '',
@@ -17,7 +19,6 @@ function HomePage() {
     email: '',
   });
   const [deleteUsername, setDeleteUsername] = useState('');
-
 
   const handleEnterKey = (e) => {
     if (e.key === 'Enter') {
@@ -47,8 +48,15 @@ function HomePage() {
   };
 
   const handleUpdate = async () => {
+    const updateData = JSON.stringify({
+      name: updateName,
+      address: updateAddress,
+      email: updateEmail,
+      accounts: updateAccounts.split(','),
+      tier: updateTier,
+    });
     try {
-      await axios.put('https://your-api-endpoint/set', { username: updateUsername, updateData: JSON.parse(updateData) });
+      await axios.put('https://us-east-2.aws.data.mongodb-api.com/app/application-0-pwpmz/endpoint/putCustomers?username=' + updateUsername + '&updateData=' + updateData);
       fetchCustomers(); // Refresh data
     } catch (error) {
       console.error('Error updating customer:', error);
@@ -57,7 +65,7 @@ function HomePage() {
 
   const handlePost = async () => {
     try {
-      await axios.post('https://your-api-endpoint/post', JSON.parse(newCustomerData));
+      await axios.post('https://us-east-2.aws.data.mongodb-api.com/app/application-0-pwpmz/endpoint/postCustomers', JSON.parse(newCustomerData));
       fetchCustomers(); // Refresh data
     } catch (error) {
       console.error('Error creating customer:', error);
@@ -66,7 +74,7 @@ function HomePage() {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`https://your-api-endpoint/delete?username=${deleteUsername}`);
+      await axios.delete(`https://us-east-2.aws.data.mongodb-api.com/app/application-0-pwpmz/endpoint/deleteCustomers?username=${deleteUsername}`);
       fetchCustomers(); // Refresh data
     } catch (error) {
       console.error('Error deleting customer:', error);
@@ -142,6 +150,8 @@ function HomePage() {
           <input type="text" placeholder="Name" value={updateName} onChange={e => setUpdateName(e.target.value)} />
           <input type="text" placeholder="Address" value={updateAddress} onChange={e => setUpdateAddress(e.target.value)} />
           <input type="email" placeholder="Email" value={updateEmail} onChange={e => setUpdateEmail(e.target.value)} />
+          <input type="text" placeholder="Accounts" value={updateAccounts} onChange={e => setUpdateAccounts(e.target.value)} />
+          <input type="text" placeholder="Tier" value={updateTier} onChange={e => setUpdateTier(e.target.value)} />
           <button onClick={handleUpdate}>Update Customer</button>
         </TabPanel>
         <TabPanel>
@@ -150,6 +160,8 @@ function HomePage() {
           <input type="text" placeholder="Name" value={newCustomer.name} onChange={e => setNewCustomer({ ...newCustomer, name: e.target.value })} />
           <input type="text" placeholder="Address" value={newCustomer.address} onChange={e => setNewCustomer({ ...newCustomer, address: e.target.value })} />
           <input type="email" placeholder="Email" value={newCustomer.email} onChange={e => setNewCustomer({ ...newCustomer, email: e.target.value })} />
+          <input type="text" placeholder="Accounts" value={newCustomer.accounts} onChange={e => setNewCustomer({ ...newCustomer, accounts: e.target.value })} />
+          <input type="text" placeholder="Tier" value={newCustomer.tier} onChange={e => setNewCustomer({ ...newCustomer, tier: e.target.value })} />
           <button onClick={handlePost}>Create Customer</button>
         </TabPanel>
         <TabPanel>
