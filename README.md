@@ -11,20 +11,12 @@ This React application is a demonstration of implementing REST API operations (G
 - **Date**: 11/28/2023
 - **Instructor**: Dr. Xia Li
 
-## Features
-- **REST API Integration**: Perform Create, Read, Update, and Delete operations on customer data using REST APIs.
-- **Cloud Database Interaction**: Connects a React frontend to a cloud-hosted database for scalable and efficient data management.
-- **Responsive Design**: User-friendly interface suitable for a variety of devices.
-
 ## Technologies Used
 - React.js
 - Axios for API requests
-- Cloud-based database (specify the database, e.g., MongoDB, Firebase, etc.)
-- CSS for styling
+- MongoDB
 
-## Installation and Setup
-Describe the steps to install and set up the project. Include any necessary commands.
-
+## Setup
 ```bash
 git clone https://github.com/your-repo-link
 cd your-project-directory
